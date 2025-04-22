@@ -5,7 +5,7 @@ local utils = require("utils.linter")
 local Util = require("util")
 
 local formatters = {
-  "jose-elias-alvarez/null-ls.nvim",
+  "nvimtools/none-ls.nvim",
   event = { "BufReadPre", "BufNewFile" },
   dependencies = {
     "neovim/nvim-lspconfig",
@@ -24,10 +24,10 @@ if settings.enable_conform then
       dependencies = "williamboman/mason.nvim",
       config = function()
         -- triggered myself, since `run_on_start`, does not work w/ lazy-loading
-        require("mason-tool-installer").setup {
+        require("mason-tool-installer").setup({
           ensure_installed = formatters_linters,
           run_on_start = false,
-        }
+        })
         vim.defer_fn(vim.cmd.MasonToolsInstall, 2000)
       end,
     },
@@ -46,7 +46,7 @@ if settings.enable_conform then
         {
           "<leader>F",
           function()
-            require("conform").format { lsp_fallback = "always" }
+            require("conform").format({ lsp_fallback = "always" })
             vim.cmd.update()
           end,
           mode = { "n", "x" },
@@ -95,7 +95,7 @@ local signature = {}
 local lspsaga = {}
 local snippet = {}
 local session = {}
-if vim.fn.has('nvim-0.10') == 1 then
+if vim.fn.has("nvim-0.10") == 1 then
   session = {
     "Shatur/neovim-session-manager",
     lazy = false,
@@ -138,17 +138,17 @@ end
 
 if settings.enable_lsp_timeout then
   lsp_timeout = {
-	  "hinell/lsp-timeout.nvim",
-	  dependencies={ "neovim/nvim-lspconfig" },
+    "hinell/lsp-timeout.nvim",
+    dependencies = { "neovim/nvim-lspconfig" },
     config = function()
       vim.g["lsp-timeout-config"] = {
         -- When focus is lost
         -- wait 5 minutes before stopping all LSP servers
-        stopTimeout=1000 * 60 * 5,
-        startTimeout=1000 * 10,
-        silent = true
+        stopTimeout = 1000 * 60 * 5,
+        startTimeout = 1000 * 10,
+        silent = true,
       }
-    end
+    end,
   }
 end
 
@@ -176,13 +176,13 @@ if settings.enable_treesitter_context then
         min_window_height = 0,
         line_numbers = true,
         multiline_threshold = 20,
-        trim_scope = 'outer',
-        mode = 'cursor',
+        trim_scope = "outer",
+        mode = "cursor",
         separator = nil,
         zindex = 20,
         on_attach = nil,
       })
-    end
+    end,
   }
 end
 
@@ -210,15 +210,15 @@ if settings.enable_animate then
 end
 
 if settings.enable_duck then
-    -- Alternate Duck configurations:
-    -- popular candidates: 🦆 ඞ  🦀 🐈 🐎 🦖 🐤
-    --
-    -- You can also specify how fast a duck moves (measured in steps per second):
-    --
-    -- A pretty fast duck
-    -- vim.keymap.set('n', '<Leader>dd', function() require("duck").hatch("🦆", 10) end, {})
-    -- Quite a mellow cat
-    -- vim.keymap.set('n', '<Leader>dc', function() require("duck").hatch("🐈", 0.75) end, {})
+  -- Alternate Duck configurations:
+  -- popular candidates: 🦆 ඞ  🦀 🐈 🐎 🦖 🐤
+  --
+  -- You can also specify how fast a duck moves (measured in steps per second):
+  --
+  -- A pretty fast duck
+  -- vim.keymap.set('n', '<Leader>dd', function() require("duck").hatch("🦆", 10) end, {})
+  -- Quite a mellow cat
+  -- vim.keymap.set('n', '<Leader>dc', function() require("duck").hatch("🐈", 0.75) end, {})
   duck = {
     "tamton-aquib/duck.nvim",
     -- <Leader>d is already taken for debug keymaps
@@ -260,11 +260,11 @@ if settings.enable_database then
       },
       opts = {
         db_competion = function()
-          require("cmp").setup.buffer { sources = { { name = "vim-dadbod-completion" } } }
+          require("cmp").setup.buffer({ sources = { { name = "vim-dadbod-completion" } } })
         end,
       },
       config = function(_, opts)
-        vim.g.db_ui_save_location = vim.fn.stdpath "config" .. require("plenary.path").path.sep .. "db_ui"
+        vim.g.db_ui_save_location = vim.fn.stdpath("config") .. require("plenary.path").path.sep .. "db_ui"
 
         vim.api.nvim_create_autocmd("FileType", {
           pattern = {
@@ -520,7 +520,7 @@ if settings.enable_coding then
       dependencies = {
         "williamboman/mason.nvim",
         "williamboman/mason-lspconfig.nvim",
-        "jose-elias-alvarez/nvim-lsp-ts-utils",
+        "pmizio/typescript-tools.nvim",
         "nvim-lua/plenary.nvim",
         "b0o/SchemaStore.nvim",
         "folke/neodev.nvim",
@@ -818,11 +818,11 @@ end
 
 if settings.enable_telescope_themes then
   telescope_themes = {
-	  "andrew-george/telescope-themes",
+    "andrew-george/telescope-themes",
     dependencies = { "nvim-telescope/telescope.nvim" },
-	  config = function()
-		  require("telescope").load_extension("themes")
-	  end
+    config = function()
+      require("telescope").load_extension("themes")
+    end,
   }
 end
 
@@ -1105,7 +1105,7 @@ return {
     "nvim-telescope/telescope.nvim",
     lazy = false,
     cmd = "Telescope",
-  -- branch = "0.1.x",
+    -- branch = "0.1.x",
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-lua/popup.nvim",
@@ -1133,7 +1133,7 @@ return {
       { "<leader>s;", "<cmd>Telescope command_history<cr>", desc = "Command history" },
       {
         "<leader>sf",
-      "  <cmd>lua require'telescope.builtin'.grep_string{ shorten_path = true, word_match = '-w', only_sort_text = true, search = '' }<cr>",
+        "  <cmd>lua require'telescope.builtin'.grep_string{ shorten_path = true, word_match = '-w', only_sort_text = true, search = '' }<cr>",
         desc = "Fuzzy search",
       },
       -- Git
@@ -1161,7 +1161,7 @@ return {
       {
         "<leader><space>",
         "<cmd>Telescope file_browser<CR>",
-        desc = "Find Files (root dir)"
+        desc = "Find Files (root dir)",
       },
       -- search
       { "<leader>sa", "<cmd>Telescope autocommands<cr>", desc = "Auto Commands" },

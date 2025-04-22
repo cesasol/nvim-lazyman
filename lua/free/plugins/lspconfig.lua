@@ -3,7 +3,7 @@ local formatters_linters = settings.formatters_linters
 local lsp_servers = settings.lsp_servers
 
 local formatters = {
-  "jose-elias-alvarez/null-ls.nvim",
+  "nvimtools/none-ls.nvim",
   event = { "BufReadPre", "BufNewFile" },
   dependencies = {
     "neovim/nvim-lspconfig",
@@ -13,7 +13,7 @@ local formatters = {
     require("config.null-ls")
   end,
 }
-local format_depend = "jose-elias-alvarez/null-ls.nvim"
+local format_depend = "nvimtools/none-ls.nvim"
 if settings.enable_conform then
   formatters = {
     "stevearc/conform.nvim",
@@ -27,17 +27,17 @@ end
 local lsp_timeout = {}
 if settings.enable_lsp_timeout then
   lsp_timeout = {
-	  "hinell/lsp-timeout.nvim",
-	  dependencies={ "neovim/nvim-lspconfig" },
+    "hinell/lsp-timeout.nvim",
+    dependencies = { "neovim/nvim-lspconfig" },
     config = function()
       vim.g["lsp-timeout-config"] = {
         -- When focus is lost
         -- wait 5 minutes before stopping all LSP servers
-        stopTimeout=1000 * 60 * 5,
-        startTimeout=1000 * 10,
-        silent = true
+        stopTimeout = 1000 * 60 * 5,
+        startTimeout = 1000 * 10,
+        silent = true,
       }
-    end
+    end,
   }
 end
 
@@ -58,7 +58,7 @@ if settings.enable_coding then
       dependencies = {
         "williamboman/mason.nvim",
         "williamboman/mason-lspconfig.nvim",
-        "jose-elias-alvarez/nvim-lsp-ts-utils",
+        "pmizio/typescript-tools.nvim",
         format_depend,
         "nvim-lua/plenary.nvim",
         "b0o/SchemaStore.nvim",

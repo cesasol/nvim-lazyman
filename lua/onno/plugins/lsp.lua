@@ -14,7 +14,7 @@ end
 
 local formatters = {
   {
-    "jose-elias-alvarez/null-ls.nvim",
+    "nvimtools/none-ls.nvim",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
       "neovim/nvim-lspconfig",
@@ -46,16 +46,16 @@ local lsp_timeout = {}
 if settings.enable_lsp_timeout then
   lsp_timeout = {
     "hinell/lsp-timeout.nvim",
-    dependencies={ "neovim/nvim-lspconfig" },
+    dependencies = { "neovim/nvim-lspconfig" },
     config = function()
       vim.g["lsp-timeout-config"] = {
         -- When focus is lost
         -- wait 5 minutes before stopping all LSP servers
-        stopTimeout=1000 * 60 * 5,
-        startTimeout=1000 * 10,
-        silent = true
+        stopTimeout = 1000 * 60 * 5,
+        startTimeout = 1000 * 10,
+        silent = true,
       }
-    end
+    end,
   }
 end
 
@@ -79,11 +79,15 @@ if settings.enable_coding then
         "williamboman/mason-lspconfig.nvim",
       },
       keys = {
-        { "<leader>de", vim.diagnostic.open_float, { noremap = true, silent = true, desc = "Open float" }},
-        { "[d", vim.diagnostic.goto_prev, { noremap = true, silent = true }},
-        { "]d", vim.diagnostic.goto_next, { noremap = true, silent = true }},
-        { "<leader>dq", vim.diagnostic.setloclist, { noremap = true, silent = true, desc = "Set diagnostics location list" }},
-        { "<leader>dt", toggle_diagnostics, { desc = "Toggle diagnostics" }},
+        { "<leader>de", vim.diagnostic.open_float, { noremap = true, silent = true, desc = "Open float" } },
+        { "[d", vim.diagnostic.goto_prev, { noremap = true, silent = true } },
+        { "]d", vim.diagnostic.goto_next, { noremap = true, silent = true } },
+        {
+          "<leader>dq",
+          vim.diagnostic.setloclist,
+          { noremap = true, silent = true, desc = "Set diagnostics location list" },
+        },
+        { "<leader>dt", toggle_diagnostics, { desc = "Toggle diagnostics" } },
         { "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>", desc = "Code Action" },
         { "<leader>ld", "<cmd>Telescope lsp_document_diagnostics<cr>", desc = "Document Diagnostics" },
         { "<leader>lw", "<cmd>Telescope lsp_workspace_diagnostics<cr>", desc = "Workspace Diagnostics" },
@@ -130,7 +134,8 @@ if settings.enable_coding then
 
         -- Style floating windows
         vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
-        vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
+        vim.lsp.handlers["textDocument/signatureHelp"] =
+          vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
 
         -- Borders for LspInfo winodw
         require("lspconfig.ui.windows").default_options.border = "rounded"

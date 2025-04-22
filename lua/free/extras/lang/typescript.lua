@@ -6,9 +6,9 @@ return {
     end,
   },
   {
-    "jose-elias-alvarez/null-ls.nvim",
+    "nvimtools/none-ls.nvim",
     opts = function(_, opts)
-      table.insert(opts.sources, require "typescript.extensions.null-ls.code-actions")
+      table.insert(opts.sources, require("typescript.extensions.null-ls.code-actions"))
     end,
   },
   {
@@ -19,7 +19,7 @@ return {
   },
   {
     "neovim/nvim-lspconfig",
-    dependencies = { "jose-elias-alvarez/typescript.nvim" },
+    dependencies = { "pmizio/typescript-tools.nvim" },
     opts = {
       servers = {
         tsserver = {},
@@ -27,7 +27,7 @@ return {
       },
       setup = {
         tsserver = function(_, opts)
-          local lsp_utils = require "plugins.lsp.utils"
+          local lsp_utils = require("plugins.lsp.utils")
           lsp_utils.on_attach(function(client, buffer)
             if client.name == "tsserver" then
               -- stylua: ignore
@@ -35,7 +35,7 @@ return {
               vim.keymap.set("n", "<leader>cR", "TypescriptRenameFile", { desc = "Rename File", buffer = buffer })
             end
           end)
-          require("typescript").setup { server = opts }
+          require("typescript").setup({ server = opts })
           return true
         end,
       },

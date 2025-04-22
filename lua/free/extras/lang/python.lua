@@ -6,9 +6,9 @@ return {
     end,
   },
   {
-    "jose-elias-alvarez/null-ls.nvim",
+    "nvimtools/none-ls.nvim",
     opts = function(_, opts)
-      local nls = require "null-ls"
+      local nls = require("null-ls")
       table.insert(opts.sources, nls.builtins.formatting.black)
     end,
   },
@@ -31,9 +31,9 @@ return {
                 autoSearchPaths = true,
                 useLibraryCodeForTypes = true,
                 diagnosticMode = "openFilesOnly", -- "openFilesOnly" or "openFilesOnly"
-                stubPath = vim.fn.stdpath "data" .. "/lazy/python-type-stubs/stubs",
+                stubPath = vim.fn.stdpath("data") .. "/lazy/python-type-stubs/stubs",
                 diagnosticSeverityOverrides = {
-                    reportUnusedExpression = "none",
+                  reportUnusedExpression = "none",
                 },
               },
             },
@@ -49,7 +49,7 @@ return {
       },
       setup = {
         pyright = function(_, _)
-          local lsp_utils = require "plugins.lsp.utils"
+          local lsp_utils = require("plugins.lsp.utils")
           lsp_utils.on_attach(function(client, buffer)
             -- stylua: ignore
             if client.name == "pyright" then
